@@ -12,13 +12,14 @@ import userRoute from './src/routes/userRoutes'
 import { PORT } from './src/config'
 //import passport from './src/config/passport'
 import { sequelize } from './src/database/models/index';
+import passport from 'passport'
 // import { ErrorHandler, notFoundHandler } from './src/utils/errorHandler'
 
 dotenv.config()
 
 const app: Application = express()
 
-//app.use(passport.initialize())
+app.use(passport.initialize())
 
 // app.use(passport.initialize())
 // // Serve Swagger UI
