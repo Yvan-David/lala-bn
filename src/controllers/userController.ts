@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import {db} from '../database/models'
 import {
-  getUserById,
+  getUserById,updateUserById
 } from '../services/userServices'
 
 import { hashPassword, comparePassword } from '../utils/passwords'
@@ -106,6 +106,37 @@ export default class UserController {
     }
   }
 
+  static async updateUser(req: Request, res: Response) {
+    try {
+      const { id } = req.params
+      const fieldsToUpdate = req.body
+  
+      if (Object.keys(fieldsToUpdate).length === 0) {
+        return res.status(400).json({ message: 'Nothing to update' })
+      }
+  
+      // Filter only allowed fields
+      const { username, email, userRole } = fieldsToUpdate
+      // Proceed only if there are fields to update
+      if (username || email || userRole) {
+        await updateUserById({ username, email, userRole }, id)
+      } else {
+        return res.status(400).json({ message: 'Invalid fields to update' })
+      }
+  
+      const updatedUser = await getUserById(id)
+  
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'User not found' })
+      }
+  
+      return res.status(200).json(updatedUser)
+    } catch (err: unknown) {
+      const error = err as Error
+      return res.status(500).json({ message: 'Internal Server Error', error: error.message })
+    }
+  }
+  
     /**
    * Handles user login.
    * @param {Request} req - Express request object

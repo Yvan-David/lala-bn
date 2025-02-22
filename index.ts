@@ -14,6 +14,8 @@ import { PORT } from './src/config'
 import { sequelize } from './src/database/models/index';
 import passport from 'passport'
 // import { ErrorHandler, notFoundHandler } from './src/utils/errorHandler'
+import listingRoutes from './src/routes/listingRoutes'
+import bookingRoutes from './src/routes/bookingRoutes'
 
 dotenv.config()
 
@@ -35,7 +37,8 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.use('/users', userRoute)
-
+app.use('/listing', listingRoutes)
+app.use('/booking', bookingRoutes)
 // app.use(notFoundHandler)
 
 // app.use(ErrorHandler)

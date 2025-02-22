@@ -7,24 +7,22 @@ const router = Router()
 
 router.post(
   '/signup',
-  UserController.signup,
+  UserController.signup
 )
 router.get('/:id', UserController.getUser);
 router.post(
   '/login',
-  UserController.login,
+  UserController.login
 )
-
+router.patch(
+  '/:id',
+  UserController.updateUser
+)
 router.get(
   '/login/google',
   passport.authenticate('google', {
     scope: ['profile', 'email'],
   }),
 )
-
 router.get('/google/callback', UserController.loginWithGoogle)
-// router.get('/google/callback', (req, res) => {
-//   console.log('Google callback reached');
-//   res.send('Callback reached');
-// });
 export default router

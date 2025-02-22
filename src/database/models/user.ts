@@ -34,6 +34,10 @@ module.exports = (sequelize:any, DataTypes:any) =>{
   
     public userRole!: string
   
+    static associate(models: any) {
+      User.hasMany(models.Listing, { foreignKey: 'hostId', as: 'listings' })
+      User.hasMany(models.Booking, { foreignKey: 'renterId', as: 'bookings' })
+    }
   }
   
   User.init(

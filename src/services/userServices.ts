@@ -17,7 +17,7 @@ export const getUserByRole = (userRole: string) =>
 
 export const deleteUserById = (id: string) => db.User.destroy({ where: { id } })
 
-export const updateUserById = (fieldsToUpdate: object, id: number) =>
+export const updateUserById = (fieldsToUpdate: object, id: string) =>
   db.User.update(fieldsToUpdate, { where: { id } })
 
 export const getUsersCount = async () => {
